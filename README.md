@@ -14,4 +14,4 @@
             "eject": "react-scripts eject"
         },
         "proxy": "http://localhost:3001"
-    2.
+    2. 
