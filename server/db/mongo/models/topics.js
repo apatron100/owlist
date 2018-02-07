@@ -12,8 +12,8 @@ const TopicSchema = new mongoose.Schema({
   count: { type: Number, min: 0 },
   date: { type: Date, default: Date.now }
 });
-// mongoose.plugin(mongooseDelete, { deletedAt: true, deletedBy: true });
-TopicSchema.plugin(mongooseDelete, { deletedAt: true });
+
+TopicSchema.plugin(mongooseDelete, { overrideMethods: true, deletedAt: true });
 TopicSchema.plugin(timestamps);
 // Compiles the schema into a model, opening (or creating, if
 // nonexistent) the 'Topic' collection in the MongoDB database
