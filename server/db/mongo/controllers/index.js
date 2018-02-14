@@ -1,11 +1,13 @@
 import topics from './topics';
 import users from './users';
-import feature from './feature';
+import projects from './projects';
+import comments from './comments';
 
-export { topics, users, feature };
+export { topics, users, comments, projects };
 
 export default {
   topics,
   users,
-  feature
+  comments,
+  projects
 };

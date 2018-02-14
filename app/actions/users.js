@@ -1,6 +1,6 @@
+/* eslint consistent-return: 0, no-else-return: 0*/
 import { push } from 'react-router-redux';
 import { authService } from '../services';
-
 import * as types from '../types';
 
 function beginLogin() {

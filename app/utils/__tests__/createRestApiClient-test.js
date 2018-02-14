@@ -42,7 +42,6 @@ describe('RESTful api client', () => {
     const method = 'POST';
     const params = { id: '123' };
     const data = { name: 'kending' };
-
     beforeEach(() => {
       request = client.request({
         url: '/test',

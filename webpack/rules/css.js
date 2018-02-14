@@ -55,7 +55,7 @@ module.exports = ({ production = false, browser = false } = {}) => {
         use: loaders
       });
     }
-    return [{ loader: 'style-loader' }, ...loaders];
+    return [{ loader: 'style-loader'}, ...loaders];
   };
 
   const serverLoaders = createCssLoaders(false);

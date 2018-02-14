@@ -1,8 +1,6 @@
 export default function loadModels() {
-  require('./comment');
-  require('./feature');
-  require('./task');
-  require('./project');
+  require('./features');
   require('./topics');
   require('./user');
+  require('./calendar');
 }

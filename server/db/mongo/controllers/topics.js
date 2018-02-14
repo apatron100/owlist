@@ -33,33 +33,30 @@ export function add(req, res) {
  * Update a topic
  */
 export function update(req, res) {
-  const query = { id: req.params.id };
   const isIncrement = req.body.isIncrement;
   const isFull = req.body.isFull;
   const omitKeys = ['id', '_id', '_v', 'isIncrement', 'isFull'];
   const data = _.omit(req.body, omitKeys);
-
   if (isFull) {
-    Topic.findOneAndUpdate(query, data, (err) => {
+    Topic.findOneAndUpdate({ id: req.params.id }, data, (err) => {
       if (err) {
-        console.log('Error on save!');
-        return res.status(500).send('We failed to save for some reason');
+        console.log('Error in first query');
+        return res.status(500).send('Something went wrong getting the data');
       }
-
       return res.status(200).send('Updated successfully');
     });
   } else {
-    Topic.findOneAndUpdate(query, { $inc: { count: isIncrement ? 1 : -1 } }, (err) => {
+    Topic.findOneAndUpdate({ id: req.params.id, count: { $gte: 0 } }, {
+      $inc: { count: isIncrement ? 1 : -1 }
+    }).exec((err) => {
       if (err) {
-        console.log('Error on save!');
-        return res.status(500).send('We failed to save for some reason');
+        console.log('Error in first query');
+        return res.status(500).send('Something went wrong getting the data');
       }
-
       return res.status(200).send('Updated successfully');
     });
   }
 }
-
 /**
  * Remove a topic
  */

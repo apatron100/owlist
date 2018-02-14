@@ -7,6 +7,9 @@ import { controllers, passport as passportConfig } from '../db';
 
 const usersController = controllers && controllers.users;
 const topicsController = controllers && controllers.topics;
+const commentsController = controllers && controllers.comments;
+const projectsController = controllers && controllers.projects;
+const calendarsController = controllers && controllers.calendar;
 
 export default (app) => {
   // user routes
@@ -28,7 +31,8 @@ export default (app) => {
     app.get('/auth/google', passport.authenticate('google', {
       scope: [
         'https://www.googleapis.com/auth/userinfo.profile',
-        'https://www.googleapis.com/auth/userinfo.email'
+        'https://www.googleapis.com/auth/userinfo.email',
+        'https://www.googleapis.com/auth/calendar'
       ]
     }));
 
@@ -51,5 +55,38 @@ export default (app) => {
     app.delete('/topic/:id', topicsController.remove);
   } else {
     console.warn(unsupportedMessage('topics routes'));
+  }
+
+  if (commentsController) {
+    app.get('/comment', topicsController.all);
+    app.post('/comment/:id', topicsController.add);
+    app.put('/comment/:id', topicsController.update);
+    app.delete('/comment/:id', topicsController.remove);
+  } else {
+    console.warn(unsupportedMessage('comments routes'));
+  }
+
+  if (projectsController) {
+      app.get('/project', projectsController.all);
+      app.post('/project/:id', projectsController.add);
+      app.put('/project/:id', projectsController.update);
+      app.delete('/project/:id', projectsController.remove);
+  } else {
+      console.warn(unsupportedMessage('projects routes'));
+  }
+
+  if (calendarsController) {
+    app.get('/calendar/:id',
+      // passport.authenticate('google', {
+      //   successRedirect: '/',
+      //   failureRedirect: '/login'
+      // })
+    );
+    // app.get('/calendar', calendarsController.all);
+    // app.post('/calendar/:id', calendarsController.add);
+    // app.put('/calendar/:id', calendarsController.update);
+    // app.delete('/calendar/:id', calendarsController.remove);
+  } else {
+      console.warn(unsupportedMessage('calendars routes'));
   }
 };

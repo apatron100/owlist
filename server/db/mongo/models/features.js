@@ -11,23 +11,25 @@ const FeatureSchema = new Schema({
     title: String,
     content: String,
     date: { type: Date, default: Date.now },
-}, { collection: 'Features', discriminatorKey: '_type' });
+    parentId: { type: String }
+}, { collection: 'features', discriminatorKey: '_type' });
 
 FeatureSchema.plugin(mongooseDelete, { deletedAt: true });
 FeatureSchema.plugin(timestamps);
 
 const CommentSchema = FeatureSchema.extend({
-    parent: { type: ObjectId }
+    important: Boolean
 });
 
 const TaskSchema = FeatureSchema.extend({
     assignedById: [{ type: ObjectId, ref: 'User' }],
     assignedToId: [{ type: ObjectId, ref: 'User' }],
-    users: [{ type: ObjectId, ref: 'User' }],
+    comments: [CommentSchema]
 });
 
 const ProjectSchema = FeatureSchema.extend({
     tasks: [TaskSchema],
+    comments: [CommentSchema],
     users: [{ type: ObjectId, ref: 'User' }]
 });
 
