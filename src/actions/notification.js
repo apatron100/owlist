@@ -2,7 +2,6 @@ import { NOTIFICATION_TYPE } from '../actiontypes';
 
 export function addNotification(notification) {
   notification.id = guid();
-
   return dispatch => {
     dispatch({
       type: NOTIFICATION_TYPE.ADD_NOTIFICATION,

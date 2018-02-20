@@ -11,10 +11,6 @@ class App extends Component {
     return (
       <div id="root">
         <ul>
-          <Notifications
-            notifications={this.props.notifications}
-            removeFunc={this.props.removeNotification}
-          />
           <li>
             <Link to="/">Home</Link>
           </li>
@@ -26,7 +22,12 @@ class App extends Component {
           </li>
         </ul>
         <Routes />
+        <Notifications
+            notifications={this.props.notifications}
+            removeFunc={this.props.removeNotification}
+        />
       </div>
+      
     );
   }
 }

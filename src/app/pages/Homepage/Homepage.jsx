@@ -18,7 +18,6 @@ class Homepage extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ addNotification }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ addNotification }, dispatch);
 
-export default connect(mapDispatchToProps)(Homepage);
+export default connect(null, mapDispatchToProps)(Homepage);
