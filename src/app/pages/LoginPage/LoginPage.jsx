@@ -2,77 +2,106 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-
 import Page from '../../components/Page';
-import NavigationPanel from '../../components/Login/l-navigationPanel';
-import Modal from '../../components/Login/l-modal';
+
+// import hourGlassSvg from '../images/hourglass.svg';
 
 import { userAction } from '../../../actions';
 
 class LoginPage extends Component {
   constructor(props) {
     super(props);
-
-    // reset login status
-    this.props.dispatch(userAction.logout());
-
-    this.state = {
-      username: '',
-      password: '',
-      submitted: false,
-      mounted: false
-    };
-
-    this.componentDidMount = this.componentDidMount.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleOnSubmit = this.handleOnSubmit.bind(this);
   }
 
-  componentDidMount() {
-    this.setState({ mounted: true });
-  }
+  handleOnSubmit(event) {
+    event.preventDefault();
 
-  handleChange(e) {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-  }
+    const { manualLogin, signUp, user: { isLogin } } = this.props;
+    const email = 'ReactDOM.findDOMNode(this.refs.email).value';
+    const password = 'ReactDOM.findDOMNode(this.refs.password).value';
 
-  handleSubmit(e) {
-    e.preventDefault();
-    this.setState({ mounted: false, submitted: true });
-    const { username, password } = this.state;
-    const { dispatch } = this.props;
-
-    if (username && password) {
-      dispatch(userAction.login(username, password));
+    if (isLogin) {
+      manualLogin({ email, password });
+    } else {
+      signUp({ email, password });
     }
   }
 
-  render() {
-    const { loggingIn } = this.props;
-    const { username, password, submitted, mounted } = this.state;
-
-    let child;
-
-    if (mounted) {
-      child = (
-        <div className="App_test">
-          <NavigationPanel />
-          <Modal onSubmit={this.handleSubmit} />
+  renderHeader() {
+    const { user: { isLogin }, toggleLoginMode } = this.props;
+    if (isLogin) {
+      return (
+        <div className="header">
+          <h1 className="heading">Login with Email</h1>
+          <div className="alternative">
+            Not what you want?
+            <a className="alternative-link" onClick={toggleLoginMode}>
+              Register an Account
+            </a>
+          </div>
         </div>
       );
     }
+    return (
+      <div className="header">
+        <h1 className="heading">Register with Email</h1>
+        <div className="alternative">
+          Already have an account?
+          <a className="alternative-link" onClick={toggleLoginMode}>
+            Login
+          </a>
+        </div>
+      </div>
+    );
+  }
+
+  render() {
+    const { isWaiting, message, isLogin } = this.props.user;
 
     return (
-      <Page title="LoginPage" id="loginpage">
-        <ReactCSSTransitionGroup
-          transitionName="example"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={300}>
-          {child}
-        </ReactCSSTransitionGroup>
-      </Page>
+      <div className="login" waiting={isWaiting}>
+        <div className="container">
+          {this.renderHeader()}
+          {/* <img className="loading" alt="loading" src={hourGlassSvg} /> */}
+          <div className="email-container">
+            <form onSubmit={this.handleOnSubmit}>
+              <input
+                className="input"
+                type="email"
+                ref="email"
+                placeholder="email"
+              />
+              <input
+                className="input"
+                type="password"
+                ref="password"
+                placeholder="password"
+              />
+              <div className="hint">
+                <div>Hint</div>
+                <div>email: example@ninja.com password: ninja</div>
+              </div>
+              <p
+                className="message"
+                message-show={message && message.length > 0}>
+                {message}
+              </p>
+              <input
+                className="button"
+                type="submit"
+                value={isLogin ? 'Login' : 'Register'}
+              />
+            </form>
+          </div>
+          <div className="google-container">
+            <h1 className="heading">Google Login Demo</h1>
+            <a className="button" href="/auth/google">
+              Login with Google
+            </a>
+          </div>
+        </div>
+      </div>
     );
   }
 }

@@ -23,3 +23,35 @@ export function authentication(state = initialState, action) {
       return state;
   }
 }
+
+const message = (state = '', action) => {
+  switch (action.type) {
+    case USER_TYPE.LOGIN_SUCCESS:
+      return '';
+    case USER_TYPE.LOGIN_FAILURE:
+      return action.message;
+    default:
+      return state;
+  }
+};
+
+const isWaiting = (state = false, action) => {
+  switch (action.type) {
+    case USER_TYPE.LOGIN_SUCCESS:
+    case USER_TYPE.LOGIN_FAILURE:
+      return false;
+    default:
+      return state;
+  }
+};
+
+const authenticated = (state = false, action) => {
+  switch (action.type) {
+    case USER_TYPE.LOGIN_SUCCESS:
+      return true;
+    case USER_TYPE.LOGIN_FAILURE:
+      return false;
+    default:
+      return state;
+  }
+};

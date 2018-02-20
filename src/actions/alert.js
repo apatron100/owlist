@@ -1,7 +1,7 @@
 import { ALERT_TYPE } from '../actiontypes';
 
 function success(message) {
-  return { type: ALERT_TYPE.SUCCESS, message };
+  return { type: ALERT_TYPE.REQUEST_SUCCESS, message };
 }
 
 function error(message) {
@@ -9,7 +9,7 @@ function error(message) {
 }
 
 function clear() {
-  return { type: ALERT_TYPE.CLEAR };
+  return { type: ALERT_TYPE.DISMISS_MESSAGE };
 }
 
 export default {
@@ -17,3 +17,5 @@ export default {
   error,
   clear
 };
+
+

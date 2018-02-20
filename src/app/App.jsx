@@ -24,9 +24,6 @@ class App extends Component {
           <li>
             <Link to="/login">Login</Link>
           </li>
-          {/* <li>
-            <Link to="/something">A broken page link</Link>
-          </li> */}
         </ul>
         <Routes />
       </div>
