@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-
 import { Homepage, AboutPage, LoginPage, OopsPage } from './pages';
 
 export default store => {

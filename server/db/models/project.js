@@ -1,17 +1,17 @@
 import mongoose from 'mongoose';
-import mongooseDelete from 'mongoose-delete';
-import Task from './task';
+// import Task from './task';
 
 const ProjectSchema = new mongoose.Schema({
     title: String,
     text: String,
-    tasks: [Task],
-    users: {}
+    // tasks: [Task],
+    users: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    }
   }, {
     timestamps: true
   }
 );
 
-ProjectSchema.plugin(mongooseDelete, { deletedAt: true });
-
-export default mongoose.model('Topic', ProjectSchema);
+export default mongoose.model('Project', ProjectSchema);

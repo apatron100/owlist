@@ -1,20 +1,17 @@
 import mongoose from 'mongoose';
 import loadModels from './models';
+import { DB_ENV } from '../config/env';
 
-const db =
-  process.env.MONGOHQ_URL ||
-  process.env.MONGODB_URI ||
-  'mongodb://localhost/owlist';
 
 export default () => {
   const connect = () => {
     mongoose.Promise = require('bluebird');
-    mongoose.connect(db, err => {
+    mongoose.connect(DB_ENV, err => {
       if (err) {
-        console.log(`===>  Error connecting to ${db}`);
-        console.log(`Reason: ${err}`);
+        console.log(`===>  Error connecting to ${DB_ENV}`);
+        console.log(`Reason: ${DB_ENV}`);
       } else {
-        console.log(`===>  Succeeded in connecting to ${db}`);
+        console.log(`===>  Succeeded in connecting to ${DB_ENV}`);
       }
     });
   };

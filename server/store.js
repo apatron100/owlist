@@ -1,5 +1,5 @@
 import createHistory from 'history/createMemoryHistory';
-import initStore from '../../src/utils/initStore';
+import initStore from '../src/utils/initStore';
 
 const createServerStore = (path = '/') => {
   const initialState = {};

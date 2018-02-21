@@ -10,7 +10,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import { Route } from 'react-router-dom';
 import createServerStore from './store';
 
-import App from '../src/app';
+import App from '../src/app/App';
 
 const prepHTML = (data, { html, head, body }) => {
   data = data.replace('<html lang="en">', `<html ${html}`);

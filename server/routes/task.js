@@ -1,5 +1,5 @@
 import express from 'express';
-const taskController = require('../../controllers/task.js');
+const taskController = require('../db/controllers/task.js');
 
 const router = express.Router();
 

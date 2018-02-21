@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { connect } from './db';
+import { connect } from './init/db';
 
 import initPassport from './init/passport';
 import initApp from './init/app';

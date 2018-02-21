@@ -9,14 +9,15 @@ import methodOverride from 'method-override';
 import morgan from 'morgan';
 import path from 'path';
 
-import { ENV } from '../../config/env';
-import { sessionSecret, sessionId } from '../../config/secrets';
-import { session as dbSession } from '../db';
+import { ENV } from '../config/env';
+import { sessionSecret, sessionId } from '../config/secrets';
+import { session as dbSession } from './db';
 
-import index from './routes/index';
-import api from './routes/api';
+import index from '../routes/index';
+import api from '../routes/api';
+import task from '../routes/task';
 
-import universalLoader from './universal';
+import universalLoader from '../universal';
 
 const PORT = process.env.PORT || 3000;
 
@@ -69,7 +70,8 @@ export default (app) => {
     app.use('/', index);
     app.use(express.static(path.resolve(__dirname, '../build')));
     app.use('/api', api);
-    app.use('/api', api);
+    app.use('/tasks', task);
+
     app.use('/', universalLoader);
 };
 

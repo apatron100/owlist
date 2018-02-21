@@ -14,6 +14,7 @@ const initStore = (initialState, history) => {
       enhancers.push(devToolsExtension());
     }
   }
+
   const composedEnhancers = compose(applyMiddleware(...middleware), ...enhancers);
   const store = createStore(rootReducer, initialState, composedEnhancers);
   

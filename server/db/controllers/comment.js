@@ -1,4 +1,4 @@
-import Comment from '../models/comment';
+import Comment from '../models';
 import * as msg from './errors';
 
 let response = (status, data) => ({ 'success': status, 'message': (status ? msg.SUCCESS : msg.ERROR), data });
