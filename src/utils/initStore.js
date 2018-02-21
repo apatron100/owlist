@@ -7,18 +7,16 @@ const initStore = (initialState, history) => {
   const enhancers = [];
   const middleware = [thunk, routerMiddleware(history)];
 
-  if (process.env.NODE_ENV === 'development') {
-    const devToolsExtension = window.devToolsExtension;
-
-    if (typeof devToolsExtension === 'function') {
-      enhancers.push(devToolsExtension());
-    }
+  if (process.env.NODE_ENV === 'development' && typeof devToolsExtension === 'function') {
+    enhancers.push(window.devToolsExtension());
   }
-
-  const composedEnhancers = compose(applyMiddleware(...middleware), ...enhancers);
-  const store = createStore(rootReducer, initialState, composedEnhancers);
   
-  return store;
-}
+  const composedEnhancers =
+    enhancers.length > 0
+      ? compose(applyMiddleware(...middleware), ...enhancers)
+      : compose(applyMiddleware(...middleware));
+
+  return createStore(rootReducer, initialState, composedEnhancers);
+};
 
 export default initStore;

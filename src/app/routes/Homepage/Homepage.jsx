@@ -10,7 +10,7 @@ class Homepage extends Component {
       <Page title="Homepage" id="homepage">
         <h1>Hoot!</h1>
         <button
-          onClick={() => this.props.addNotification({ text: 'hooty hoot' })}>
+          onClick={() => this.props.addNotification({ text: 'This is a Notification' })}>
           Add notification
         </button>
       </Page>

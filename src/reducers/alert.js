@@ -2,8 +2,6 @@ import { ALERT_TYPE } from '../actiontypes';
 
 export function alert(state = {}, action) {
   switch (action.type) {
-    // case types.LOGIN_SUCCESS_USER:
-    // case types.SIGNUP_SUCCESS_USER:
     case ALERT_TYPE.SUCCESS:
       return {
         ...state,

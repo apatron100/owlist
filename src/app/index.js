@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import { removeNotification } from '../actions/notification';
 import Notifications from './components/Notifications';
-import Routes from './routes.jsx';
+import Routes from './routes';
 
 class App extends Component {
   render() {
@@ -21,17 +21,14 @@ class App extends Component {
             <Link to="/login">Login</Link>
           </li>
         </ul>
-        <Routes />
         <Notifications
-            notifications={this.props.notifications}
-            removeFunc={this.props.removeNotification}
+          notifications={this.props.notifications}
+          removeFunc={this.props.removeNotification}
         />
       </div>
-      
     );
   }
 }
-
 const mapStateToProps = state => ({
   notifications: state.notification.notifications
 });
